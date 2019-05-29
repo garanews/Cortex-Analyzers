@@ -34,7 +34,10 @@ class URLhausAnalyzer(Analyzer):
         taxonomies = []
         namespace = "URLhaus"
 
-        if raw['query_status'] == 'no_results':
+        if raw['query_status'] == 'no_results' \
+        or raw['query_status'] == 'invalid_sha256_hash' \
+        or raw['query_status'] == 'invalid_md5_hash' \
+        or raw['query_status'] == 'ok' and raw['md5_hash'] is null and raw['sha256_hash'] is null:
             taxonomies.append(self.build_taxonomy(
                 'info',
                 namespace,
